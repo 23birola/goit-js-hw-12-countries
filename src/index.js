@@ -6,29 +6,31 @@ import countryCardTemplate from './templates/country-card.hbs';
 import countriesListTemplate from './templates/countries-list.hbs';
 
 // import fetchCountries from './js/fetchCountries'
-
+const BASE_URL = 'https://restcountries.eu'
 const refs = {
   searchCountry: document.querySelector('#country'),
   countryContainer: document.querySelector('.country')
 };
-// console.log(refs.searchCountry.textContent);
 
 refs.searchCountry.addEventListener('input', debounce(fetchCountries, 1000));
 
 function fetchCountries(e) {
-  console.log(e.target.value);
+  refs.countryContainer.innerHTML = "";
   let countryQuery = e.target.value;
-  fetch(`https://restcountries.eu/rest/v2/name/${countryQuery}`)
-  .then(response => {
-    return response.json();
+  fetch(`${BASE_URL}/rest/v2/name/${countryQuery}`)
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error(error);
   })
-  .then(data => {
+    .then(data => {
     if (data.length > 10) {
         defaultModules.set(PNotifyMobile, {});
         alert({
             text: 'Too many matches found. Please enter a more specific query'
         });
-      throw "error";
+        throw new Error(error);
     }
     if (data.length > 1) {
       return countriesListTemplate(data);
