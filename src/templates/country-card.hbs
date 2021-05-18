@@ -2,11 +2,11 @@
 <h1 class="country-title">{{name}}</h1>
 <div class="country-card">
     <div class="country-description">
-        <p>Capital: {{capital}}</p>
-        <p>Population: {{population}}</p>
-        <ul>Languages:
+        <p><span class = "characteristic">Capital:</span> {{capital}}</p>
+        <p><span class = "characteristic">Population:</span> {{population}}</p>
+        <ul class = "languages-list"><span class = "characteristic">Languages:</span>
             {{#each languages}}
-            <li>{{name}}</li>
+            <li class = "languages-item">{{name}}</li>
             {{/each}}
         </ul>
     </div>
